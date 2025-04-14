@@ -1,16 +1,19 @@
 #include<iostream>
 using namespace std;
 int LO(int a[], int n, int x){
-	int low=0, high= n-1;
+	int low=0,high=n-1;
+	int last;
 	while(low<=high){
-		int mid= (low+high)/2;
+		int mid = (low+high)/2;
 		if(a[mid]>x)high=mid-1;
 		else if(a[mid]<x)low=mid+1;
 		else{
-			if(mid == n-1 || a[mid+1]!=a[mid])return mid;
-			else low=mid+1;
+			last=mid;
+			break;
 		}
 	}
+	while(last<n-1 && a[last+1]==a[last])last++;
+	return last;
 }
 int main(){
 	int arr[]={10,20,20,20,30,30,30,40,40};
