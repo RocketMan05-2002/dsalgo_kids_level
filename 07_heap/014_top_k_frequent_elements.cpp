@@ -1,22 +1,25 @@
-#include<bits/stdc++.h>
-#include<unordered_map>
+#include <bits/stdc++.h>
+#include <unordered_map>
 using namespace std;
-struct Node{
+struct Node
+{
     int no;
     int freq;
-    Node(int a, int b){
+    Node(int a, int b)
+    {
         no = a;
         freq = b;
     }
 };
-int main(){
-    int arr = [1,2,3,1,2,1];
-    int n = sizeof(arr)/sizeof(arr[0]);
-    vector<int> ans = topkFreq(arr,n);
-    for(auto it:arr) cout<<it<<" ";
+int main()
+{
+    int arr = [ 1, 2, 3, 1, 2, 1 ];
+    int n = sizeof(arr) / sizeof(arr[0]);
+    vector<int> ans = topkFreq(arr, n);
+    for (auto it : arr)
+        cout << it << " ";
     return 0;
 }
-
 
 /*
 logic-
