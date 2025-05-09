@@ -1,3 +1,9 @@
+// useful when theres not much disparity among the array elements
+// TC = O(n+k). K = maximum element. 
+// if k is of order of n then theres no probs
+// TC = O(n), in that case.
+// SC = O(maxi), frequency array of size of maximum element
+
 #include<bits/stdc++.h>
 using namespace std;
 void countSort(int arr[], int n){

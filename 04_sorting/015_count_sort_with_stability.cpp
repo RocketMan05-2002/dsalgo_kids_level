@@ -1,47 +1,44 @@
-#include <bits/stdc++.h>
+// useful when theres not much disparity among the array elements
+// TC = O(n+k). K = maximum element. 
+// if k is of order of n then theres no probs
+// TC = O(n), in that case.
+// SC = O(maxi), frequency array of size of maximum element
+
+#include<bits/stdc++.h>
 using namespace std;
-
-void countSort(int arr[], int n) {
-    // Step 1: Find maximum value
-    int maxi = *max_element(arr, arr + n);
-
-    // Step 2: Frequency array
-    int freq[maxi + 1] = {0};
-    for (int i = 0; i < n; i++) {
-        freq[arr[i]]++;
-    }
-
-    // Step 3: Convert freq to cumulative freq
-    for (int i = 1; i <= maxi; i++) {
-        freq[i] += freq[i - 1];
-    }
-
-    // Step 4: Build output array (stable sort)
-    int ans[n];
-    for (int i = n - 1; i >= 0; i--) {
-        freq[arr[i]]--;
-        ans[freq[arr[i]]] = arr[i];
-    }
-
-    // Step 5: Copy sorted data back to original array
-    for (int i = 0; i < n; i++) {
-        arr[i] = ans[i];
-    }
+void countSort(vector<int> &arr){
+	int n=arr.size();
+	// 1. find maximum element
+	int maxi = INT_MIN;
+	for(int i=0;i<n;i++){
+		maxi = max(maxi,arr[i]);
+	}
+	// 2. frequency array
+	vector<int> freq(maxi+1,0);
+	for(int i=0;i<n;i++) freq[arr[i]]++;
+	
+	//3. cumulative frequency
+	for(int i=1;i<=maxi;i++){
+		freq[i] += freq[i-1];
+	}
+	
+	//4. calculate the sorted array
+	vector<int> ans(n);
+	for(int i=n-1;i>=0;i--){
+		ans[--freq[arr[i]]] = arr[i];
+	}
+	
+	//5. ans -> arr
+	for(int i=0;i<n;i++){
+		arr[i]=ans[i];
+	}
 }
-
-int main() {
-    int arr[] = {5, 2, 3, 2, 1};
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    cout << "Original: ";
-    for (int i = 0; i < n; i++) cout << arr[i] << " ";
-    cout << endl;
-
-    countSort(arr, n);
-
-    cout << "Sorted: ";
-    for (int i = 0; i < n; i++) cout << arr[i] << " ";
-    cout << endl;
-
-    return 0;
+int main(){
+	int n;
+	cin>>n;
+	vector<int>a(n);
+	for(int i=0;i<n;i++) cin>>a[i];
+	countSort(a);
+	for(auto it:a) cout<<it<<" ";
+	return 0;
 }
