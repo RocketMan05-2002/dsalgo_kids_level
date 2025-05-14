@@ -5,7 +5,7 @@ int search(int arr[], int n, int x)
     int low = 0, high = n - 1;
     while (low <= high)
     {
-        int mid = (low + high) / 2;
+        int mid = (low + high) / 2
         if (arr[mid] == x)
             return mid;
         if (arr[low] <= arr[mid])
