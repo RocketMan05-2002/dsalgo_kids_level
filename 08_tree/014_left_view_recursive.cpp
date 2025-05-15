@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 struct Node{
     int key;
@@ -10,22 +10,16 @@ struct Node{
         right = NULL;
     }
 };
-void fun(Node* root, int k, vector<int> &ds){
-    if(root == NULL) return;
-    if(k==0){
-        ds.push_back(root->data);
-        return;
+int maxLevel = 0;
+void leftView(Node* root, int level){
+    if(root==NULL) return;
+    if(maxLevel < level){
+        cout<<root->key<<" ";
+        maxLevel = level;
     }
-    fun(root->left,k-1,ds);
-    fun(root->right,k-1,ds);
+    leftView(root->left, level+1);
+    leftView(root->right,level+1);
 }
-vector<int> Kdistance(Node *root, int k) {
-    // Your code here
-    vector<int>ds;
-    fun(root,k,ds);
-    return ds;
-}
-
 int main(){
     Node* root = new Node(10);
     root->left = new Node(20);
@@ -34,8 +28,7 @@ int main(){
     root->left->right = new Node(50);
     root->right->left = new Node(60);
     root->right->right = new Node(70);
-    int k;
-    cin>k;
-    printAtK(root,k);
+    // tree has been created
+    leftView(root,1);
     return 0;
 }
