@@ -1,41 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-void fun(int ind, int target, vector<int> &ds, vector<int> &arr, vector<vector<int>> &ans)
-{
-    if (target == 0)
-    {
-        ans.push_back(ds);
-        return;
-    }
-    for (int i = ind; i < arr.size(); i++)
-    {
-        if (i > ind && arr[i - 1] == arr[i])
-            continue;
-        if (arr[i] > target)
-            break;
-        ds.push_back(arr[i]);
-        fun(i + 1, target - arr[i], ds, arr, ans);
-        ds.pop_back();
-    }
+void fun(int ind, vector<int> &ds, int sum, vector<int> &arr, vector<int> &ans){
+	if(ind==arr.size()){
+		ans.push_back(sum);
+		return;
+	}
+	//pick
+	ds.push_back(arr[ind]);
+	fun(ind+1,ds,sum+arr[ind],arr,ans);
+	ds.pop_back();
+	//not pick
+	fun(ind+1,ds,sum,arr,ans);
 }
-vector<vector<int>> findCombos(vector<int> &vec, int target)
-{
-    vector<vector<int>> ans;
-    vector<int> ds;
-    fun(0, target, ds, vec, ans);
-    return ans;
+vector<int> funs(vector<int> &arr){
+	vector<int>ans;
+	vector<int>ds;
+	fun(0,ds,0,arr,ans);
+	sort(ans.begin(),ans.end());
+	return ans;
 }
-int main()
-{
-    vector<int> vec = {1, 1, 1, 2, 2};
-    int target = 4;
-    vector<vector<int>> ans = findCombos(vec, target);
-    for (auto it : ans)
-    {
-        for (auto ele : it)
-        {
-            cout << ele << " ";
-        }
-        cout << endl;
-    }
+int main() {
+	// your code goes here
+	vector<int> arr{3,1,2};
+	vector<int> ans = funs(arr);
+	for(auto it:ans) cout<<it<<" ";
+	return 0;
 }
