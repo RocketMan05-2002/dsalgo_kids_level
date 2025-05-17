@@ -1,40 +1,29 @@
-// an efficient approach
-
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-void fun(int ind, vector<int> &nums, vector<vector<int>> &ans)
-{
-
-    if (ind == nums.size())
-    {
-        ans.push_back(nums);
-        return;
-    }
-
-    for (int i = ind; i < nums.size(); i++)
-    {
-        swap(nums[ind], nums[i]);
-        fun(ind + 1, nums, ans);
-        swap(nums[ind], nums[i]);
-    }
+void fun(int ind, vector<int> &arr, vector<vector<int>> &ans){
+	if(ind == arr.size()){
+		ans.push_back(arr);
+		return;
+	}
+	// traverse over the array and swap elements
+	for(int i=ind;i<arr.size();i++){
+		swap(arr[i],arr[ind]);
+		fun(ind+1,arr,ans);
+		swap(arr[ind],arr[i]);
+	}
 }
-vector<vector<int>> permutations(vector<int> &nums)
-{
-    vector<vector<int>> ans;
-    fun(0, nums, ans);
-    return ans;
+vector<vector<int>> permute(vector<int> &arr){
+	vector<vector<int>> ans;
+	fun(0,arr,ans);
+	return ans;
 }
-int main()
-{
-    vector<int> nums = {1, 2, 3};
-    vector<vector<int>> ans = permutations(nums);
-    for (auto it : ans)
-    {
-        for (auto ele : it)
-        {
-            cout << ele << " ";
-        }
-        cout << endl;
-    }
-    return 0;
+int main(){
+	vector<int> arr{1,2,3};
+	vector<vector<int>> ans = permute(arr);
+	for(auto it:ans){
+		for(auto ele:it){
+			cout<<ele<<" ";
+		}
+		cout<<endl;
+	}
 }
